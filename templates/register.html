@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>创建账户</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .register-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .register-header h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .register-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            outline: none;
+        }
+
+        .form-group .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            color: #999;
+        }
+
+        .password-strength {
+            margin-top: 5px;
+            height: 4px;
+            background-color: #eee;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s, background-color 0.3s;
+        }
+
+        .terms-conditions {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .terms-conditions input {
+            margin-right: 8px;
+        }
+
+        .terms-conditions a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .register-button:hover {
+            background: linear-gradient(to right, #5a6fd1, #6a4296);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .social-register {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .social-register p {
+            color: #999;
+            font-size: 13px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .social-register p::before,
+        .social-register p::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background-color: #eee;
+        }
+
+        .social-register p::before {
+            left: 0;
+        }
+
+        .social-register p::after {
+            right: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+
+        .facebook {
+            background-color: #3b5998;
+        }
+
+        .twitter {
+            background-color: #1da1f2;
+        }
+
+        .google {
+            background-color: #db4437;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-header">
+            <h1>创建新账户</h1>
+            <p>填写以下信息完成注册</p>
+        </div>
+
+        <form id="registerForm" method="POST" action="/register">
+
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" name="username" placeholder="请输入用户名" required>
+                <i class="input-icon fas fa-user"></i>
+                <div class="error-message" id="usernameError">用户名至少需要4个字符</div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">电子邮箱</label>
+                <input type="email" id="email" name="email" placeholder="请输入电子邮箱" required>
+                <i class="input-icon fas fa-envelope"></i>
+                <div class="error-message" id="emailError">请输入有效的电子邮箱</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password" placeholder="请输入密码" required>
+                <i class="input-icon fas fa-lock"></i>
+                <div class="password-strength">
+                    <div class="strength-bar" id="strengthBar"></div>
+                </div>
+                <div class="error-message" id="passwordError">密码至少需要6个字符</div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">确认密码</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="请再次输入密码" required>
+                <i class="input-icon fas fa-lock"></i>
+                <div class="error-message" id="confirmPasswordError">两次输入的密码不一致</div>
+            </div>
+
+            <div class="form-group">
+                <label for="captcha">验证码</label>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <input type="text" id="captcha" name="captcha" placeholder="请输入验证码" required
+                           style="flex: 1; height: 44px; padding-right: 30px; box-sizing: border-box;">
+
+                    <a href="javascript:void(0);" id="captchaLink">
+                        <img src="/login/captcha" alt="验证码" id="captchaImage"
+                             style="width: 150px; height: 44px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;"
+                             title="点击刷新验证码">
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="terms-conditions">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">我已阅读并同意 <a href="#">服务条款</a> 和 <a href="#">隐私政策</a></label>
+            </div>
+
+            <button type="submit" class="register-button">注册</button>
+        </form>
+
+        <div class="login-link">
+            已有账户? <a href="/login">立即登录</a>
+        </div>
+
+        <div class="social-register">
+            <p>或通过以下方式注册</p>
+            <div class="social-icons">
+                <div class="social-icon facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <div class="social-icon twitter">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <div class="social-icon google">
+                    <i class="fab fa-google"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 验证码刷新功能
+        document.getElementById('captchaLink').addEventListener('click', function(e) {
+            e.preventDefault(); // 阻止链接默认跳转行为
+            const img = document.getElementById('captchaImage');
+            img.src = '/login/captcha?t=' + Date.now(); // 加时间戳防止缓存
+        });
+
+
+        // 密码强度检测
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthBar = document.getElementById('strengthBar');
+            let strength = 0;
+
+            if (password.length > 0) strength += 20;
+            if (password.length >= 8) strength += 20;
+            if (/[A-Z]/.test(password)) strength += 20;
+            if (/[0-9]/.test(password)) strength += 20;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+
+            strengthBar.style.width = strength + '%';
+
+            if (strength < 40) {
+                strengthBar.style.backgroundColor = '#e74c3c';
+            } else if (strength < 80) {
+                strengthBar.style.backgroundColor = '#f39c12';
+            } else {
+                strengthBar.style.backgroundColor = '#2ecc71';
+            }
+        });
+
+        // 表单验证
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            // 清除所有错误信息
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+            });
+
+            // 用户名验证
+            const username = document.getElementById('username').value;
+            if (username.length < 4) {
+                document.getElementById('usernameError').style.display = 'block';
+                isValid = false;
+            }
+
+            // 邮箱验证
+            const email = document.getElementById('email').value;
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+
+            // 密码验证
+            const password = document.getElementById('password').value;
+            if (password.length < 6) {
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            }
+
+            // 确认密码验证
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').style.display = 'block';
+                isValid = false;
+            }
+
+            // 验证码验证
+            const captcha = document.getElementById('captcha').value;
+            if (captcha.length === 0) {
+                document.getElementById('captchaError').textContent = '请输入验证码';
+                document.getElementById('captchaError').style.display = 'block';
+                isValid = false;
+            }
+
+            // 条款同意验证
+            if (!document.getElementById('terms').checked) {
+                alert('请同意服务条款和隐私政策');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // 表单验证通过，可以提交到服务器
+                //alert('注册成功！');
+                // 这里可以添加AJAX提交逻辑
+                this.submit();
+            }
+        });
+    </script>
+
+    {% if alert_message %}
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: '注册错误',
+            text: '{{ alert_message }}',
+            confirmButtonText: '确定'
+        });
+    </script>
+    {% endif %}
+
+</body>
+
+<!-- 在body底部添加 -->
+<div id="errorModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="modalMessage"></p>
+  </div>
+</div>
+
+<style>
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+
+<script>
+// 显示模态框的函数
+function showModal(message) {
+  document.getElementById('modalMessage').textContent = message;
+  document.getElementById('errorModal').style.display = 'block';
+}
+
+// 关闭模态框
+document.querySelector('.close').onclick = function() {
+  document.getElementById('errorModal').style.display = 'none';
+}
+
+// 点击模态框外部关闭
+window.onclick = function(event) {
+  if (event.target == document.getElementById('errorModal')) {
+    document.getElementById('errorModal').style.display = 'none';
+  }
+}
+
+
+</script>
+
+</html>
