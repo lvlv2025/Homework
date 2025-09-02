@@ -45,4 +45,8 @@ Dockerfile          # Dockerfile 主文件，如果你不想上传
 Thumbs.db           # Windows 系统生成的隐藏文件
 
 config.yaml
+test.py
+sql.py
+
+.idea/
 
