@@ -314,7 +314,7 @@ def get_chat_history_response():
 
 # 新增加路由：个人信息查询接口
 @app.route("/api/get_info/user", methods=['POST'])
-@login_required
+@login_required(role='user')
 def get_current_user_info():
     app.logger.debug('进入 /api/get_info/user 接口')
     current_user_uuid = session.get_json('user_uuid')
