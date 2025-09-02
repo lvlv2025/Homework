@@ -1,8 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, func
-from sqlalchemy.orm import declarative_base, relationship, sessionmaker
-from sqlalchemy import create_engine
-import sqlalchemy
-import uuid
+from sqlalchemy.orm import declarative_base, relationship
+
 
 Base = declarative_base()
 
@@ -38,6 +36,6 @@ class Admin_info(Base):
     __tablename__ = "Admin_info"
 
     id = Column(Integer, primary_key=True, autoincrement=True)  # 记录主键
-    name = Column(String(100), nullable=False)
+    name = Column(String(100), nullable=False, unique=True)     # 名字唯一
     password = Column(String(300), nullable=False)
     created_at = Column(DateTime, server_default=func.now())

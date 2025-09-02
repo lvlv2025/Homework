@@ -1,0 +1,396 @@
+2025-09-02 17:46:17,922 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:46:17,925 - INFO - app:465 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /static/<path:filename>
+2025-09-02 17:46:17,926 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-02 17:46:17,926 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-02 17:46:17,926 - INFO - app:465 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/login/captcha
+2025-09-02 17:46:17,926 - INFO - app:465 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/register/captcha
+2025-09-02 17:46:17,926 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-02 17:46:17,926 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-02 17:46:17,926 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-02 17:46:17,926 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-02 17:46:17,926 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-02 17:46:17,926 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-02 17:46:17,926 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-02 17:46:17,926 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-02 17:46:19,125 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:46:19,128 - INFO - app:465 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /static/<path:filename>
+2025-09-02 17:46:19,129 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-02 17:46:19,129 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-02 17:46:19,129 - INFO - app:465 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /api/login/captcha
+2025-09-02 17:46:19,129 - INFO - app:465 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /api/register/captcha
+2025-09-02 17:46:19,129 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-02 17:46:19,129 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-02 17:46:19,129 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-02 17:46:19,129 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-02 17:46:19,129 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-02 17:46:19,129 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-02 17:46:19,129 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-02 17:46:19,129 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-02 17:48:10,562 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:48:10,566 - INFO - app:465 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /static/<path:filename>
+2025-09-02 17:48:10,566 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-02 17:48:10,566 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-02 17:48:10,566 - INFO - app:465 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/login/captcha
+2025-09-02 17:48:10,566 - INFO - app:465 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/register/captcha
+2025-09-02 17:48:10,566 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-02 17:48:10,566 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-02 17:48:10,566 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-02 17:48:10,566 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-02 17:48:10,566 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-02 17:48:10,566 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-02 17:48:10,567 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-02 17:48:10,567 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-02 17:49:41,762 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:49:41,765 - INFO - app:465 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /static/<path:filename>
+2025-09-02 17:49:41,765 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-02 17:49:41,765 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-02 17:49:41,765 - INFO - app:465 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/login/captcha
+2025-09-02 17:49:41,765 - INFO - app:465 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/register/captcha
+2025-09-02 17:49:41,765 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-02 17:49:41,765 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-02 17:49:41,766 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-02 17:49:41,766 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-02 17:49:41,766 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-02 17:49:41,766 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-02 17:49:41,766 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-02 17:49:41,766 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-02 17:49:42,956 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:49:42,959 - INFO - app:465 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /static/<path:filename>
+2025-09-02 17:49:42,959 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-02 17:49:42,960 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-02 17:49:42,960 - INFO - app:465 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/login/captcha
+2025-09-02 17:49:42,960 - INFO - app:465 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/register/captcha
+2025-09-02 17:49:42,960 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-02 17:49:42,960 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-02 17:49:42,960 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-02 17:49:42,960 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-02 17:49:42,960 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-02 17:49:42,960 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-02 17:49:42,960 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-02 17:49:42,960 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-02 17:50:29,575 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:50:29,578 - INFO - app:465 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /static/<path:filename>
+2025-09-02 17:50:29,578 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-02 17:50:29,578 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-02 17:50:29,580 - INFO - app:465 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/login/captcha
+2025-09-02 17:50:29,580 - INFO - app:465 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/register/captcha
+2025-09-02 17:50:29,580 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-02 17:50:29,580 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-02 17:50:29,580 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-02 17:50:29,580 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-02 17:50:29,580 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-02 17:50:29,580 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-02 17:50:29,580 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-02 17:50:29,580 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-02 17:50:30,801 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:50:30,804 - INFO - app:465 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /static/<path:filename>
+2025-09-02 17:50:30,804 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-02 17:50:30,804 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-02 17:50:30,804 - INFO - app:465 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /api/login/captcha
+2025-09-02 17:50:30,804 - INFO - app:465 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /api/register/captcha
+2025-09-02 17:50:30,805 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-02 17:50:30,805 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-02 17:50:30,805 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-02 17:50:30,805 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-02 17:50:30,805 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-02 17:50:30,805 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-02 17:50:30,805 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-02 17:50:30,805 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-02 17:51:23,186 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:51:23,189 - INFO - app:465 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /static/<path:filename>
+2025-09-02 17:51:23,189 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-02 17:51:23,189 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-02 17:51:23,189 - INFO - app:465 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /api/login/captcha
+2025-09-02 17:51:23,189 - INFO - app:465 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /api/register/captcha
+2025-09-02 17:51:23,190 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-02 17:51:23,190 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-02 17:51:23,190 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-02 17:51:23,190 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-02 17:51:23,190 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-02 17:51:23,190 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-02 17:51:23,190 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-02 17:51:23,190 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-02 17:51:32,568 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:51:32,571 - INFO - app:465 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /static/<path:filename>
+2025-09-02 17:51:32,571 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-02 17:51:32,571 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-02 17:51:32,571 - INFO - app:465 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/login/captcha
+2025-09-02 17:51:32,571 - INFO - app:465 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/register/captcha
+2025-09-02 17:51:32,571 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-02 17:51:32,572 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-02 17:51:32,572 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-02 17:51:32,572 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-02 17:51:32,572 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-02 17:51:32,572 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-02 17:51:32,572 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-02 17:51:32,573 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-02 17:53:50,852 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:53:50,855 - INFO - app:465 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /static/<path:filename>
+2025-09-02 17:53:50,855 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-02 17:53:50,855 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-02 17:53:50,855 - INFO - app:465 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/login/captcha
+2025-09-02 17:53:50,855 - INFO - app:465 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/register/captcha
+2025-09-02 17:53:50,855 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-02 17:53:50,856 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-02 17:53:50,856 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-02 17:53:50,856 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-02 17:53:50,856 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-02 17:53:50,856 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-02 17:53:50,856 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-02 17:53:50,856 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-02 17:53:52,062 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:53:52,065 - INFO - app:465 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /static/<path:filename>
+2025-09-02 17:53:52,065 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-02 17:53:52,065 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-02 17:53:52,065 - INFO - app:465 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/login/captcha
+2025-09-02 17:53:52,065 - INFO - app:465 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/register/captcha
+2025-09-02 17:53:52,065 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-02 17:53:52,065 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-02 17:53:52,065 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-02 17:53:52,066 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-02 17:53:52,066 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-02 17:53:52,066 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-02 17:53:52,066 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-02 17:53:52,066 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-02 17:53:54,593 - ERROR - app:201 - 注册用户失败: (MySQLdb.IntegrityError) (1048, "Column 'email' cannot be null")
+[SQL: INSERT INTO `Users_info` (user_uuid, name, password, email, address) VALUES (%s, %s, %s, %s, %s)]
+[parameters: ('39757628026', 'mitco', 'scrypt:32768:8:1$QnzlPDIlLwtL3bHo$5ca0637805cdffde256019fc2e5f941b32bcd896bd08a15c1eb471bbfd0b6456cbb1181622470ab7ea90389f3d90e9b9dca717a013ee9a7656e41c0a20202863', None, None)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1048, "Column 'email' cannot be null")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\app.py", line 193, in register
+    db_session.commit()
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4345, in flush
+    self._flush(objects)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4480, in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4441, in _flush
+    flush_context.execute()
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.IntegrityError: (MySQLdb.IntegrityError) (1048, "Column 'email' cannot be null")
+[SQL: INSERT INTO `Users_info` (user_uuid, name, password, email, address) VALUES (%s, %s, %s, %s, %s)]
+[parameters: ('39757628026', 'mitco', 'scrypt:32768:8:1$QnzlPDIlLwtL3bHo$5ca0637805cdffde256019fc2e5f941b32bcd896bd08a15c1eb471bbfd0b6456cbb1181622470ab7ea90389f3d90e9b9dca717a013ee9a7656e41c0a20202863', None, None)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-09-02 17:54:37,306 - ERROR - app:201 - 注册用户失败: (MySQLdb.IntegrityError) (1048, "Column 'email' cannot be null")
+[SQL: INSERT INTO `Users_info` (user_uuid, name, password, email, address) VALUES (%s, %s, %s, %s, %s)]
+[parameters: ('82878257553', 'mitco', 'scrypt:32768:8:1$GuPReqNK4ypO6mfX$8919fb90e6d2a778ccf40d647e2f70fd9ebfb2c1b0b017a19a492bd3af9f6200018b4085c0f86ccad033191d0d6197de6254fb850156c73157c7305558b0a7c3', None, None)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1048, "Column 'email' cannot be null")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\app.py", line 193, in register
+    db_session.commit()
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4345, in flush
+    self._flush(objects)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4480, in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4441, in _flush
+    flush_context.execute()
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\25015\Desktop\PYTHON\作业\backend\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.IntegrityError: (MySQLdb.IntegrityError) (1048, "Column 'email' cannot be null")
+[SQL: INSERT INTO `Users_info` (user_uuid, name, password, email, address) VALUES (%s, %s, %s, %s, %s)]
+[parameters: ('82878257553', 'mitco', 'scrypt:32768:8:1$GuPReqNK4ypO6mfX$8919fb90e6d2a778ccf40d647e2f70fd9ebfb2c1b0b017a19a492bd3af9f6200018b4085c0f86ccad033191d0d6197de6254fb850156c73157c7305558b0a7c3', None, None)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-09-02 17:54:39,040 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:54:39,043 - INFO - app:465 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /static/<path:filename>
+2025-09-02 17:54:39,043 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-02 17:54:39,043 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-02 17:54:39,043 - INFO - app:465 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /api/login/captcha
+2025-09-02 17:54:39,043 - INFO - app:465 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /api/register/captcha
+2025-09-02 17:54:39,043 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-02 17:54:39,043 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-02 17:54:39,043 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-02 17:54:39,044 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-02 17:54:39,044 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-02 17:54:39,044 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-02 17:54:39,044 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-02 17:54:39,044 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-02 17:55:43,894 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /static/<path:filename>
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /api/login/captcha
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /api/register/captcha
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-02 17:55:43,897 - INFO - app:465 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-02 17:56:48,160 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:56:48,163 - INFO - app:465 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /static/<path:filename>
+2025-09-02 17:56:48,163 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-02 17:56:48,163 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-02 17:56:48,163 - INFO - app:465 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /api/login/captcha
+2025-09-02 17:56:48,163 - INFO - app:465 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /api/register/captcha
+2025-09-02 17:56:48,163 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-02 17:56:48,163 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-02 17:56:48,164 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-02 17:56:48,164 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-02 17:56:48,164 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-02 17:56:48,164 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-02 17:56:48,164 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-02 17:56:48,164 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-02 17:57:26,591 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:57:26,596 - INFO - app:465 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /static/<path:filename>
+2025-09-02 17:57:26,596 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-02 17:57:26,597 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-02 17:57:26,597 - INFO - app:465 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /api/login/captcha
+2025-09-02 17:57:26,597 - INFO - app:465 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /api/register/captcha
+2025-09-02 17:57:26,597 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-02 17:57:26,597 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-02 17:57:26,597 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-02 17:57:26,597 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-02 17:57:26,597 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-02 17:57:26,597 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-02 17:57:26,597 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-02 17:57:26,598 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-02 17:57:27,896 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-02 17:57:27,899 - INFO - app:465 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /static/<path:filename>
+2025-09-02 17:57:27,899 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-02 17:57:27,900 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-02 17:57:27,900 - INFO - app:465 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /api/login/captcha
+2025-09-02 17:57:27,900 - INFO - app:465 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /api/register/captcha
+2025-09-02 17:57:27,900 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-02 17:57:27,900 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-02 17:57:27,900 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-02 17:57:27,900 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-02 17:57:27,900 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-02 17:57:27,900 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-02 17:57:27,900 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-02 17:57:27,900 - INFO - app:465 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
