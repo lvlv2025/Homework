@@ -1,5 +1,5 @@
+
 from flask import Flask, render_template, request, redirect, url_for, make_response, session, flash, jsonify, send_file
-from captcha import generate_captcha, generate_math_captcha
 import yaml
 from sqlalchemy import create_engine,asc
 from sqlalchemy.orm import sessionmaker, Session
@@ -208,7 +208,7 @@ def get_chat_response():
     """
 
     data = request.json
-    user_message = data.get("content", "")
+    user_message = data.get("text", "")
     topic_id = data.get("topic_id")
 
     user_uuid = session.get('user_uuid')
@@ -287,9 +287,60 @@ def update_chat():
 
 
 
+
 @app.route("/api/chat/history_response", methods=['POST'])
 @login_required(role='user')
 def get_chat_history_response():
+    '''
+    获得该用户所有的历史对话数据
+    :return:
+    '''
+    data = request.json
+    user_uuid = data.get('user_uuid')
+
+    if not user_uuid:
+        return jsonify({"error": "缺少参数 user_uuid"}), 400
+
+    db_session = Session_sql()
+    try:
+        # 查询该用户所有 topic_id
+        topic_ids = db_session.query(ChatHistory.topic_id).filter_by(user_uuid=user_uuid).distinct().all()
+        if not topic_ids:
+            return jsonify({"error": "未找到记录"}), 404
+
+        result = []
+        for tid_tuple in topic_ids:
+            tid = tid_tuple[0]
+            # 查询每个 topic_id 的第一条记录
+            first_chat = db_session.query(ChatHistory).filter_by(user_uuid=user_uuid, topic_id=tid).order_by(ChatHistory.id.asc()).first()
+            if first_chat:
+                result.append({
+                    "topic_id": tid,
+                    "user_question": {
+                        "role": "user",
+                        "content": first_chat.question
+                    },
+                    "assistant_reply": {
+                        "role": "assistant",
+                        "content": first_chat.answer
+                    }
+                })
+
+        return jsonify({"history": result})
+    except Exception as e:
+        db_session.rollback()
+        app.logger.error(f"查询聊天记录失败: {str(e)}", exc_info=True)
+        return jsonify({"error": "查询失败，请稍后重试"}), 500
+    finally:
+        db_session.close()
+
+@app.route("/api/chat/Specific_history", methods=['POST'])
+@login_required(role='user')
+def get_chat_Specific_history():
+    '''
+    获得某一个历史对话的所有数据
+    :return:
+    '''
     data = request.json
     user_uuid = data.get('user_uuid')
     topic_id = data.get('topic_id')
@@ -315,6 +366,7 @@ def get_chat_history_response():
         return jsonify({"error": "查询失败，请稍后重试"}), 500
     finally:
         db_session.close()
+
 
 
 # 新增加路由：个人信息查询接口
