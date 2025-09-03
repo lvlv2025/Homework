@@ -56,7 +56,7 @@ with open("config.yaml", "r", encoding="utf-8") as f:   #修改数据库模板�
 db_conf = config['database']
 # 创建数据库引擎
 engine = create_engine(
-    f"{db_conf['type']}://{db_conf['user']}:{db_conf['password']}@{db_conf['host']}:{db_conf['port']}/{db_conf['database_name']}?charset=utf8",
+    f"{db_conf['type']}://{db_conf['user']}:{db_conf['password']}@{db_conf['host']}:{db_conf['port']}/{db_conf['database_name']}?charset={db_conf['charset']}",
     echo=False
 )
 
@@ -207,6 +207,7 @@ def register():
 def get_login_captcha():
     img, captcha_text = generate_math_captcha()
     session['captcha_text'] = captcha_text
+    print(captcha_text)
     buf = io.BytesIO()
     img.save(buf, format='PNG')
     buf.seek(0)
@@ -240,7 +241,9 @@ def get_chat_response():
     if not topic_id:
         topic_id = generate_topic_id()  # 第一次生成
 
-    response = get_chat_data([{"role": "user", "content": user_message}])
+    chat_history.append({"role": "user", "content": user_message})
+    response_message = get_chat_data(chat_history)
+    chat_history.append({"role": "assistant", "content": response_message})
 
     # 保存到数据库
 
@@ -248,7 +251,7 @@ def get_chat_response():
         user_uuid=session['user_uuid'],
         topic_id=topic_id,
         question=user_message,
-        answer=response
+        answer=response_message
     )
 
     db_session = Session_sql()  # 每次请求创建新的Session
@@ -261,7 +264,7 @@ def get_chat_response():
         return jsonify({"success": False, "error": "保存失败，请稍后重试"}), 500
     finally:
         db_session.close()  # 关闭Session
-    return jsonify({"success": True, "reply": response, "topic_id": topic_id})
+    return jsonify({"success": True, "reply": response_message, "topic_id": topic_id})
 
 
 @app.route("/api/chat/update_chat", methods=['POST'])     #开启新话题
