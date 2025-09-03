@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, make_response, session, flash, jsonify, send_file
 from captcha import generate_captcha, generate_math_captcha
-import io
 import yaml
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine,asc
 from sqlalchemy.orm import sessionmaker, Session
 from db_model import Base, Users_info, ChatHistory ,Admin_info
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -14,6 +13,8 @@ import time, random
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+import io
+import uuid
 
 
 
@@ -38,17 +39,16 @@ def generate_unique_user_uuid(db: Session, length: int = 11):
         if not exists:
             return user_uuid
 
-def generate_topic_id(length: int = 8):
-    '''
-    生成会话id
-    :param length:
-    :return:
-    '''
-    start = 10 ** (length - 1)
-    end = 10 ** length - 1
-    topic_id = str(random.randint(start, end))
 
-    return topic_id
+def generate_topic_id(db: Session, user_uuid: str) -> str:
+    """
+    生成唯一的 topic_id，并绑定 user_uuid
+    """
+    while True:
+        topic_id = str(uuid.uuid4())  # 36位全局唯一ID
+        exists = db.query(ChatHistory).filter_by(user_uuid=user_uuid, topic_id=topic_id).first()
+        if not exists:
+            return topic_id
 
 
 with open("config.yaml", "r", encoding="utf-8") as f:   #修改数据库模板名字
@@ -179,29 +179,28 @@ def register():
     session.pop('captcha_text', None)  # 防止重复使用
 
     hashed_password = generate_password_hash(password)
-    db_session = Session_sql()
-    user_uuid = generate_unique_user_uuid(db_session)
-
     try:
-        user = Users_info(
-            name=username,
-            password=hashed_password,
-            email=email,
-            user_uuid=user_uuid
-        )
-        db_session.add(user)
-        db_session.commit()
-        return jsonify({
-            "success": True,
-            "message": "注册成功",
-            "user_uuid": user_uuid
-        }), 200
+        with Session_sql() as db_session:
+            user_uuid = generate_unique_user_uuid(db_session)
+
+            user = Users_info(
+                name=username,
+                password=hashed_password,
+                email=email,
+                user_uuid=user_uuid
+            )
+            db_session.add(user)
+            db_session.commit()
+
+            return jsonify({
+                "success": True,
+                "message": "注册成功",
+                "user_uuid": user_uuid
+            }), 200
     except Exception as e:
-        db_session.rollback()
         app.logger.error(f"注册用户失败: {str(e)}", exc_info=True)
         return jsonify({"success": False, "message": "注册失败，请稍后重试"}), 500
-    finally:
-        db_session.close()
+
 
 @app.route("/api/login/captcha", methods=['GET'])     #获得登录时的验证吗
 def get_login_captcha():
@@ -222,67 +221,93 @@ def get_register_captcha():
     buf.seek(0)
     return send_file(buf, mimetype='image/png')
 
-# 聊天对话相关全局变量
-chat_history = [
-           {"role": "system", "content": "You are a helpful assistant"},
-        ]
 
 @app.route("/api/chat/get_response", methods=['POST'])
 @login_required(role='user')
 def get_chat_response():
-    '''
+    """
     获得用户的提问，并发送回答
-    :return:
-    '''
+    每次请求都从数据库加载当前 topic_id 的聊天记录
+    """
+
     data = request.json
     user_message = data.get("text", "")
-    topic_id = data.get("topic_id")  # 前端传递的 topic_id
+    topic_id = data.get("topic_id")
 
-    if not topic_id:
-        topic_id = generate_topic_id()  # 第一次生成
+    user_uuid = session.get('user_uuid')
 
+    with Session_sql() as db_session:
+        # 如果没有 topic_id，就生成新的（绑定 user_uuid）
+        if not topic_id:
+            topic_id = generate_topic_id(db_session, user_uuid)
+
+        # 查询历史记录
+        history_records = (
+            db_session.query(ChatHistory)
+            .filter_by(user_uuid=user_uuid, topic_id=topic_id)
+            .order_by(asc(ChatHistory.created_at))
+            .all()
+        )
+
+    # 构建 chat_history 列表（system + 历史对话）
+    chat_history = [{"role": "system", "content": "You are a helpful assistant"}]
+    for record in history_records:
+        chat_history.append({"role": "user", "content": record.question})
+        chat_history.append({"role": "assistant", "content": record.answer})
+
+    # 添加当前用户输入
     chat_history.append({"role": "user", "content": user_message})
-    response_message = get_chat_data(chat_history)
+    response_message = get_chat_data(chat_history)  # 调用 AI 生成回答
     chat_history.append({"role": "assistant", "content": response_message})
 
-    # 保存到数据库
-
+    # 保存当前对话
     chat_record = ChatHistory(
-        user_uuid=session['user_uuid'],
+        user_uuid=user_uuid,
         topic_id=topic_id,
         question=user_message,
-        answer=response_message
+        answer=response_message,
     )
 
-    db_session = Session_sql()  # 每次请求创建新的Session
     try:
-        db_session.add(chat_record)
-        db_session.commit()
+        with Session_sql() as db_session:
+            db_session.add(chat_record)
+            db_session.commit()
     except Exception as e:
-        db_session.rollback()
         app.logger.error(f"保存聊天记录失败: {str(e)}", exc_info=True)
         return jsonify({"success": False, "error": "保存失败，请稍后重试"}), 500
-    finally:
-        db_session.close()  # 关闭Session
+
     return jsonify({"success": True, "reply": response_message, "topic_id": topic_id})
 
 
-@app.route("/api/chat/update_chat", methods=['POST'])     #开启新话题
+
+@app.route("/api/chat/update_chat", methods=['POST'])  # 开启新话题
 @login_required(role='user')
 def update_chat():
-    '''
-    当前端开启新话题时，应传输一个参数 new=TRUE
-    :return:
-    '''
-    global chat_history
+    """
+    当前端开启新话题时，应传输一个参数 new=True
+    返回新的 topic_id，并初始化历史对话
+    """
+    data = request.get_json()
+    if data.get("new"):
+        user_uuid = session.get('user_uuid')
+        with Session_sql() as db_session:
+            # 生成新的 topic_id（绑定用户）
+            topic_id = generate_topic_id(db_session, user_uuid)
 
-    if request.get_json().get("new"):
-        topic_id = generate_topic_id()  # 生成新的topic_id
+        # 初始化 chat_history，只在返回给前端时用
         chat_history = [
-            {"role": "system", "content": "You are a helpful assistant"},
+            {"role": "system", "content": "You are a helpful assistant"}
         ]
-        return jsonify({"success": True, "message": "新话题已开始","topic_id": topic_id})
-    return jsonify({"success": False})
+
+        return jsonify({
+            "success": True,
+            "message": "新话题已开始",
+            "topic_id": topic_id,
+            "chat_history": chat_history
+        })
+
+    return jsonify({"success": False, "message": "参数缺失"})
+
 
 
 @app.route("/api/chat/history_response", methods=['POST'])
@@ -320,7 +345,7 @@ def get_chat_history_response():
 @login_required(role='user')
 def get_current_user_info():
     app.logger.debug('进入 /api/get_info/user 接口')
-    current_user_uuid = session.get_json('user_uuid')
+    current_user_uuid = session.get('user_uuid')
     app.logger.debug(f'从session获取user_uuid: {current_user_uuid}')
 
     db_session = Session_sql()
