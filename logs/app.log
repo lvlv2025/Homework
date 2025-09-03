@@ -1566,3 +1566,325 @@ sqlalchemy.exc.OperationalError: (MySQLdb.OperationalError) (1366, "Incorrect st
 2025-09-03 19:07:14,673 - INFO - app:481 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
 2025-09-03 19:07:14,674 - INFO - app:481 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
 2025-09-03 19:07:14,674 - INFO - app:481 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-03 20:24:59,890 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-03 20:24:59,893 - INFO - app:493 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /static/<path:filename>
+2025-09-03 20:24:59,893 - INFO - app:493 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-03 20:24:59,893 - INFO - app:493 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-03 20:24:59,893 - INFO - app:493 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/login/captcha
+2025-09-03 20:24:59,893 - INFO - app:493 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/register/captcha
+2025-09-03 20:24:59,894 - INFO - app:493 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-03 20:24:59,894 - INFO - app:493 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-03 20:24:59,894 - INFO - app:493 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-03 20:24:59,894 - INFO - app:493 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-03 20:24:59,894 - INFO - app:493 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-03 20:24:59,894 - INFO - app:493 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-03 20:24:59,894 - INFO - app:493 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-03 20:24:59,894 - INFO - app:493 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-03 20:25:01,342 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-03 20:25:01,346 - INFO - app:493 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /static/<path:filename>
+2025-09-03 20:25:01,346 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-03 20:25:01,346 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-03 20:25:01,346 - INFO - app:493 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /api/login/captcha
+2025-09-03 20:25:01,346 - INFO - app:493 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /api/register/captcha
+2025-09-03 20:25:01,347 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-03 20:25:01,347 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-03 20:25:01,347 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-03 20:25:01,347 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-03 20:25:01,347 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-03 20:25:01,347 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-03 20:25:01,347 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-03 20:25:01,347 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-03 20:50:41,598 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-03 20:50:41,601 - INFO - app:493 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /static/<path:filename>
+2025-09-03 20:50:41,601 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-03 20:50:41,601 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-03 20:50:41,601 - INFO - app:493 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /api/login/captcha
+2025-09-03 20:50:41,601 - INFO - app:493 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /api/register/captcha
+2025-09-03 20:50:41,601 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-03 20:50:41,601 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-03 20:50:41,601 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-03 20:50:41,601 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-03 20:50:41,601 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-03 20:50:41,601 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-03 20:50:41,602 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-03 20:50:41,602 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-03 20:50:42,835 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-03 20:50:42,838 - INFO - app:493 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /static/<path:filename>
+2025-09-03 20:50:42,838 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-03 20:50:42,838 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-03 20:50:42,838 - INFO - app:493 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /api/login/captcha
+2025-09-03 20:50:42,838 - INFO - app:493 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /api/register/captcha
+2025-09-03 20:50:42,839 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-03 20:50:42,839 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-03 20:50:42,839 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-03 20:50:42,839 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-03 20:50:42,839 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-03 20:50:42,839 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-03 20:50:42,839 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-03 20:50:42,839 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-03 20:51:00,989 - INFO - app:99 - Flask应用启动，日志系统初始化完成
+2025-09-03 20:51:00,992 - INFO - app:493 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /static/<path:filename>
+2025-09-03 20:51:00,992 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-03 20:51:00,993 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-03 20:51:00,993 - INFO - app:493 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /api/login/captcha
+2025-09-03 20:51:00,993 - INFO - app:493 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /api/register/captcha
+2025-09-03 20:51:00,993 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-03 20:51:00,993 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-03 20:51:00,993 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-03 20:51:00,993 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-03 20:51:00,993 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-03 20:51:00,993 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-03 20:51:00,993 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-03 20:51:00,994 - INFO - app:493 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-03 20:57:40,722 - INFO - app:126 - Flask应用启动，日志系统初始化完成
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /static/<path:filename>
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /api/login/captcha
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /api/register/captcha
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-03 20:57:40,726 - INFO - app:527 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-03 20:57:41,967 - INFO - app:126 - Flask应用启动，日志系统初始化完成
+2025-09-03 20:57:41,972 - INFO - app:527 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /static/<path:filename>
+2025-09-03 20:57:41,972 - INFO - app:527 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-03 20:57:41,972 - INFO - app:527 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-03 20:57:41,972 - INFO - app:527 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /api/login/captcha
+2025-09-03 20:57:41,972 - INFO - app:527 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /api/register/captcha
+2025-09-03 20:57:41,972 - INFO - app:527 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-03 20:57:41,972 - INFO - app:527 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-03 20:57:41,972 - INFO - app:527 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-03 20:57:41,972 - INFO - app:527 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-03 20:57:41,973 - INFO - app:527 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-03 20:57:41,973 - INFO - app:527 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-03 20:57:41,973 - INFO - app:527 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-03 20:57:41,973 - INFO - app:527 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-03 21:05:30,643 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:05:30,646 - INFO - app:526 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /static/<path:filename>
+2025-09-03 21:05:30,646 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-03 21:05:30,646 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-03 21:05:30,647 - INFO - app:526 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /api/login/captcha
+2025-09-03 21:05:30,647 - INFO - app:526 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /api/register/captcha
+2025-09-03 21:05:30,647 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-03 21:05:30,647 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-03 21:05:30,647 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-03 21:05:30,647 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-03 21:05:30,647 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-03 21:05:30,647 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-03 21:05:30,647 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-03 21:05:30,647 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-03 21:05:50,990 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:05:50,993 - INFO - app:526 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /static/<path:filename>
+2025-09-03 21:05:50,993 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-03 21:05:50,993 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-03 21:05:50,994 - INFO - app:526 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /api/login/captcha
+2025-09-03 21:05:50,994 - INFO - app:526 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /api/register/captcha
+2025-09-03 21:05:50,994 - INFO - app:526 - 已注册路由: {'OPTIONS', 'GTE'} /api/chat/get_response
+2025-09-03 21:05:50,994 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-03 21:05:50,994 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-03 21:05:50,994 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-03 21:05:50,994 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-03 21:05:50,994 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-03 21:05:50,994 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-03 21:05:50,994 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-03 21:05:52,262 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:05:52,265 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /static/<path:filename>
+2025-09-03 21:05:52,265 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-03 21:05:52,265 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-03 21:05:52,265 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/login/captcha
+2025-09-03 21:05:52,265 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/register/captcha
+2025-09-03 21:05:52,266 - INFO - app:526 - 已注册路由: {'OPTIONS', 'GTE'} /api/chat/get_response
+2025-09-03 21:05:52,266 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-03 21:05:52,266 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-03 21:05:52,266 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-03 21:05:52,266 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-03 21:05:52,266 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-03 21:05:52,266 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-03 21:05:52,266 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-03 21:08:39,849 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:08:39,852 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /static/<path:filename>
+2025-09-03 21:08:39,852 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-03 21:08:39,852 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-03 21:08:39,853 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/login/captcha
+2025-09-03 21:08:39,853 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/register/captcha
+2025-09-03 21:08:39,853 - INFO - app:526 - 已注册路由: {'OPTIONS', 'GTE'} /api/chat/history
+2025-09-03 21:08:39,853 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-03 21:08:39,853 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-03 21:08:39,853 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-03 21:08:39,853 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-03 21:08:39,853 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-03 21:08:39,853 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-03 21:08:39,853 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-03 21:08:41,111 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:08:41,115 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /static/<path:filename>
+2025-09-03 21:08:41,115 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-03 21:08:41,115 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-03 21:08:41,115 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/login/captcha
+2025-09-03 21:08:41,115 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/register/captcha
+2025-09-03 21:08:41,115 - INFO - app:526 - 已注册路由: {'GTE', 'OPTIONS'} /api/chat/history
+2025-09-03 21:08:41,115 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-03 21:08:41,115 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-03 21:08:41,115 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-03 21:08:41,115 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-03 21:08:41,116 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-03 21:08:41,116 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-03 21:08:41,116 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-03 21:09:53,476 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:09:53,480 - INFO - app:526 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /static/<path:filename>
+2025-09-03 21:09:53,480 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-03 21:09:53,480 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-03 21:09:53,480 - INFO - app:526 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /api/login/captcha
+2025-09-03 21:09:53,480 - INFO - app:526 - 已注册路由: {'GET', 'OPTIONS', 'HEAD'} /api/register/captcha
+2025-09-03 21:09:53,480 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-03 21:09:53,480 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-03 21:09:53,480 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-03 21:09:53,480 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-03 21:09:53,480 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-03 21:09:53,481 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-03 21:09:53,481 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-03 21:09:53,481 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-03 21:16:18,735 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:16:18,735 - INFO - app:526 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /static/<path:filename>
+2025-09-03 21:16:18,742 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-03 21:16:18,742 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-03 21:16:18,743 - INFO - app:526 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /api/login/captcha
+2025-09-03 21:16:18,743 - INFO - app:526 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /api/register/captcha
+2025-09-03 21:16:18,743 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-03 21:16:18,743 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-03 21:16:18,743 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-03 21:16:18,743 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-03 21:16:18,743 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-03 21:16:18,743 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-03 21:16:18,743 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-03 21:16:18,743 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-03 21:16:19,977 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /static/<path:filename>
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/login/captcha
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/register/captcha
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-03 21:16:19,977 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-03 21:24:11,179 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /static/<path:filename>
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /api/login/captcha
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'GET', 'HEAD', 'OPTIONS'} /api/register/captcha
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-03 21:24:11,190 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-03 21:24:12,491 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:24:12,495 - INFO - app:526 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /static/<path:filename>
+2025-09-03 21:24:12,495 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-03 21:24:12,495 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-03 21:24:12,495 - INFO - app:526 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/login/captcha
+2025-09-03 21:24:12,495 - INFO - app:526 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/register/captcha
+2025-09-03 21:24:12,495 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-03 21:24:12,495 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-03 21:24:12,495 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-03 21:24:12,495 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-03 21:24:12,496 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-03 21:24:12,496 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-03 21:24:12,496 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-03 21:24:12,496 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-03 21:34:19,529 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:34:19,536 - INFO - app:526 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /static/<path:filename>
+2025-09-03 21:34:19,536 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-03 21:34:19,536 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-03 21:34:19,536 - INFO - app:526 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/login/captcha
+2025-09-03 21:34:19,536 - INFO - app:526 - 已注册路由: {'HEAD', 'GET', 'OPTIONS'} /api/register/captcha
+2025-09-03 21:34:19,536 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-03 21:34:19,536 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-03 21:34:19,539 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-03 21:34:19,539 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-03 21:34:19,539 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-03 21:34:19,539 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-03 21:34:19,539 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-03 21:34:19,539 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-03 21:34:20,806 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /static/<path:filename>
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/login/captcha
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/register/captcha
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-03 21:34:20,806 - INFO - app:526 - 已注册路由: {'POST', 'OPTIONS'} /api/logout
+2025-09-03 21:42:52,491 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /static/<path:filename>
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/login/captcha
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/register/captcha
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-03 21:42:52,501 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-03 21:42:53,783 - INFO - app:125 - Flask应用启动，日志系统初始化完成
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /static/<path:filename>
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /api/login/captcha
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'HEAD', 'GET'} /api/register/captcha
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-03 21:42:53,783 - INFO - app:526 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-03 22:05:00,253 - INFO - app:69 - Flask应用启动，日志系统初始化完成
+2025-09-03 22:05:00,256 - INFO - app:470 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /static/<path:filename>
+2025-09-03 22:05:00,256 - INFO - app:470 - 已注册路由: {'OPTIONS', 'POST'} /api/login
+2025-09-03 22:05:00,256 - INFO - app:470 - 已注册路由: {'OPTIONS', 'POST'} /api/register
+2025-09-03 22:05:00,257 - INFO - app:470 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /api/login/captcha
+2025-09-03 22:05:00,257 - INFO - app:470 - 已注册路由: {'OPTIONS', 'GET', 'HEAD'} /api/register/captcha
+2025-09-03 22:05:00,257 - INFO - app:470 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/get_response
+2025-09-03 22:05:00,257 - INFO - app:470 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/update_chat
+2025-09-03 22:05:00,257 - INFO - app:470 - 已注册路由: {'OPTIONS', 'POST'} /api/chat/history_response
+2025-09-03 22:05:00,257 - INFO - app:470 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/user
+2025-09-03 22:05:00,257 - INFO - app:470 - 已注册路由: {'OPTIONS', 'POST'} /api/login/admin
+2025-09-03 22:05:00,257 - INFO - app:470 - 已注册路由: {'OPTIONS', 'POST'} /api/creat_info/admin
+2025-09-03 22:05:00,257 - INFO - app:470 - 已注册路由: {'OPTIONS', 'POST'} /api/get_info/admin
+2025-09-03 22:05:00,257 - INFO - app:470 - 已注册路由: {'OPTIONS', 'POST'} /api/logout
+2025-09-03 22:05:01,593 - INFO - app:69 - Flask应用启动，日志系统初始化完成
+2025-09-03 22:05:01,598 - INFO - app:470 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /static/<path:filename>
+2025-09-03 22:05:01,598 - INFO - app:470 - 已注册路由: {'POST', 'OPTIONS'} /api/login
+2025-09-03 22:05:01,598 - INFO - app:470 - 已注册路由: {'POST', 'OPTIONS'} /api/register
+2025-09-03 22:05:01,598 - INFO - app:470 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/login/captcha
+2025-09-03 22:05:01,598 - INFO - app:470 - 已注册路由: {'HEAD', 'OPTIONS', 'GET'} /api/register/captcha
+2025-09-03 22:05:01,598 - INFO - app:470 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/get_response
+2025-09-03 22:05:01,598 - INFO - app:470 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/update_chat
+2025-09-03 22:05:01,598 - INFO - app:470 - 已注册路由: {'POST', 'OPTIONS'} /api/chat/history_response
+2025-09-03 22:05:01,598 - INFO - app:470 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/user
+2025-09-03 22:05:01,598 - INFO - app:470 - 已注册路由: {'POST', 'OPTIONS'} /api/login/admin
+2025-09-03 22:05:01,598 - INFO - app:470 - 已注册路由: {'POST', 'OPTIONS'} /api/creat_info/admin
+2025-09-03 22:05:01,599 - INFO - app:470 - 已注册路由: {'POST', 'OPTIONS'} /api/get_info/admin
+2025-09-03 22:05:01,599 - INFO - app:470 - 已注册路由: {'POST', 'OPTIONS'} /api/logout

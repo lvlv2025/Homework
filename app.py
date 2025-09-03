@@ -3,52 +3,22 @@ from captcha import generate_captcha, generate_math_captcha
 import yaml
 from sqlalchemy import create_engine,asc
 from sqlalchemy.orm import sessionmaker, Session
-from db_model import Base, Users_info, ChatHistory ,Admin_info
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import timedelta
 from functools import wraps
 from ai_chat import get_chat_data
 from flask_cors import CORS
-import time, random
 import logging
 from logging.handlers import RotatingFileHandler
 import os
 import io
-import uuid
 
-
-
-def generate_unique_user_uuid(db: Session, length: int = 11):
-    """
-    生成指定长度的唯一用户UUID数字字符串
-    :param db: 数据库 Session
-    :param length: UUID 数字长度，默认为 11
-    :return: 唯一数字字符串
-    """
-    if length < 1:
-        raise ValueError("长度必须大于0")
-
-    while True:
-        # 生成指定长度的数字UUID
-        start = 10**(length - 1)
-        end = 10**length - 1
-        user_uuid = str(random.randint(start, end))
-
-        # 查询数据库是否已存在
-        exists = db.query(Users_info).filter_by(user_uuid=user_uuid).first()
-        if not exists:
-            return user_uuid
-
-
-def generate_topic_id(db: Session, user_uuid: str) -> str:
-    """
-    生成唯一的 topic_id，并绑定 user_uuid
-    """
-    while True:
-        topic_id = str(uuid.uuid4())  # 36位全局唯一ID
-        exists = db.query(ChatHistory).filter_by(user_uuid=user_uuid, topic_id=topic_id).first()
-        if not exists:
-            return topic_id
+##########################
+#导自己的py文件
+from datetime import datetime, timedelta
+from jwt_setting import generate_token,verify_token
+from creat_id import generate_unique_user_uuid,generate_topic_id
+from db_model import Base, Users_info, ChatHistory ,Admin_info
+from captcha import generate_captcha, generate_math_captcha
 
 
 with open("config.yaml", "r", encoding="utf-8") as f:   #修改数据库模板名字
@@ -130,7 +100,6 @@ def login_required(role='user'):
         return decorated_function
     return decorator
 
-
 @app.route("/api/login", methods=['POST'])
 def login():
     data = request.json
@@ -139,7 +108,7 @@ def login():
     captcha_input = data.get('captcha')
     remember = data.get('remember', False)
 
-    # 先校验验证码
+    # 校验验证码
     if 'captcha_text' not in session:
         return jsonify({"success": False, "message": "验证码已过期，请刷新"}), 400
     if captcha_input.lower() != session['captcha_text'].lower():
@@ -151,12 +120,20 @@ def login():
         if not user or not check_password_hash(user.password, input_password):
             return jsonify({"success": False, "message": "用户名或密码错误"}), 401
 
-        # 设置 session
+        # 生成 token
+        token = generate_token({'user_uuid': user.user_uuid, 'username': user.name},app.secret_key,expires_in=3600)
+
+        # 保存 session（可选）
         session['user_uuid'] = user.user_uuid
         session['username'] = user.name
         session.permanent = bool(remember)
 
-        return jsonify({"success": True, "message": "登录成功", "username": user.name})
+        return jsonify({
+            "success": True,
+            "message": "登录成功",
+            "username": user.name,
+            "token": token
+        })
     except Exception as e:
         app.logger.error(f"用户登录失败: {str(e)}", exc_info=True)
         return jsonify({"success": False, "message": "登录失败，请稍后重试"}), 500
@@ -231,7 +208,7 @@ def get_chat_response():
     """
 
     data = request.json
-    user_message = data.get("text", "")
+    user_message = data.get("content", "")
     topic_id = data.get("topic_id")
 
     user_uuid = session.get('user_uuid')
@@ -250,7 +227,7 @@ def get_chat_response():
         )
 
     # 构建 chat_history 列表（system + 历史对话）
-    chat_history = [{"role": "system", "content": "You are a helpful assistant"}]
+    chat_history = [{"role": "system", "content": "你是一个有用的助手"}]
     for record in history_records:
         chat_history.append({"role": "user", "content": record.question})
         chat_history.append({"role": "assistant", "content": record.answer})
