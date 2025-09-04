@@ -9,7 +9,7 @@ class Users_info(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)  # 内部主键
     user_uuid = Column(String(11), unique=True, nullable=False) # 外部标识
-    name = Column(String(100), nullable=False)
+    name = Column(String(100), unique=True,nullable=False)
     password = Column(String(300), nullable=False)
     email = Column(String(100), nullable=False)
     address = Column(String(100), nullable=True)
