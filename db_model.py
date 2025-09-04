@@ -11,7 +11,7 @@ class Users_info(Base):
     user_uuid = Column(String(11), unique=True, nullable=False) # 外部标识
     name = Column(String(100), unique=True,nullable=False)
     password = Column(String(300), nullable=False)
-    email = Column(String(100), nullable=False)
+    email = Column(String(100), unique=True,nullable=False)
     address = Column(String(100), nullable=True)
 
     # 关联聊天记录

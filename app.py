@@ -11,10 +11,10 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 import io
-
+from sqlalchemy.exc import IntegrityError
+from datetime import datetime, timedelta
 ##########################
 #导自己的py文件
-from datetime import datetime, timedelta
 from jwt_setting import generate_token,verify_token
 from creat_id import generate_unique_user_uuid,generate_topic_id
 from db_model import Base, Users_info, ChatHistory ,Admin_info
@@ -139,7 +139,6 @@ def login():
         db_session.close()
 
 
-
 @app.route("/api/auth/register", methods=['POST'])
 def register():
     data = request.json
@@ -149,10 +148,16 @@ def register():
     captcha = data.get("captcha")
 
     # 验证码检查
-    if 'captcha_text' not in session or captcha.lower() != session['captcha_text'].lower():
+    if 'captcha_text' not in session or not captcha or captcha.lower() != session['captcha_text'].lower():
         return jsonify({"success": False, "message": "验证码错误"}), 400
 
     session.pop('captcha_text', None)  # 防止重复使用
+
+    # 基础校验
+    if not username or not password or not email:
+        return jsonify({"success": False, "message": "用户名、密码和邮箱不能为空"}), 400
+    if len(password) < 6:
+        return jsonify({"success": False, "message": "密码至少需要 6 位"}), 400
 
     hashed_password = generate_password_hash(password)
     try:
@@ -173,7 +178,19 @@ def register():
                 "message": "注册成功",
                 "user_uuid": user_uuid
             }), 200
+
+    except IntegrityError as e:
+        db_session.rollback()
+
+        # 判断唯一约束冲突的字段
+        err_msg = str(e.orig).lower()
+        if "name" in err_msg:
+            return jsonify({"success": False, "message": "用户名已存在"}), 400
+        elif "email" in err_msg:
+            return jsonify({"success": False, "message": "邮箱已存在"}), 400
+
     except Exception as e:
+        db_session.rollback()
         app.logger.error(f"注册用户失败: {str(e)}", exc_info=True)
         return jsonify({"success": False, "message": "注册失败，请稍后重试"}), 500
 
