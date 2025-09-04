@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, redirect, url_for, make_response, session, flash, jsonify, send_file
+from flask import Flask, render_template, request, redirect, url_for, make_response, session, flash, jsonify, send_file,current_app
 import yaml
 from sqlalchemy import create_engine,asc
 from sqlalchemy.orm import sessionmaker, Session
@@ -69,46 +69,45 @@ app.logger.addHandler(console_handler)
 app.logger.info('Flask应用启动，日志系统初始化完成')
 
 
-
 def login_required(role='user'):
     """
-    登录验证
+    登录验证（纯 JWT 模式）
     role: 'user' 或 'admin'
-    普通用户用 user_uuid，管理员用 admin_name
     """
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            if role == 'user':
-                if 'user_uuid' not in session:
-                    return jsonify({
-                        "success": False,
-                        "message": "未登录，请先登录用户账号"
-                    }), 401
-            elif role == 'admin':
-                if 'admin_name' not in session:
-                    return jsonify({
-                        "success": False,
-                        "message": "未登录，请先登录管理员账号"
-                    }), 401
-            else:
-                return jsonify({
-                    "success": False,
-                    "message": "角色未定义"
-                }), 400
-            return f(*args, **kwargs)
+            # 1. 从请求头获取 Token
+            auth_header = request.headers.get("Authorization")
+            if not auth_header or not auth_header.startswith("Bearer "):
+                return jsonify({"success": False, "message": "缺少或无效的Token"}), 401
+
+            token = auth_header.split(" ")[1]
+            claims = verify_token(token, current_app.secret_key)
+            if not claims:
+                return jsonify({"success": False, "message": "Token无效或已过期"}), 401
+
+            # 2. 角色校验
+            if role == 'user' and 'user_uuid' not in claims:
+                return jsonify({"success": False, "message": "无效的用户凭证"}), 403
+            if role == 'admin' and 'admin_name' not in claims:
+                return jsonify({"success": False, "message": "无效的管理员凭证"}), 403
+
+            # 3. 把 claims 传递给路由函数
+            return f(*args, claims=claims, **kwargs)
         return decorated_function
     return decorator
 
-@app.route("/api/login", methods=['POST'])
+
+
+@app.route("/api/auth/login", methods=['POST'])
 def login():
     data = request.json
     username = data.get('username')
     input_password = data.get('password')
     captcha_input = data.get('captcha')
-    remember = data.get('remember', False)
 
-    # 校验验证码
+    # 校验验证码（注意：验证码还是放在 session 里生成和校验比较方便）
     if 'captcha_text' not in session:
         return jsonify({"success": False, "message": "验证码已过期，请刷新"}), 400
     if captcha_input.lower() != session['captcha_text'].lower():
@@ -120,13 +119,12 @@ def login():
         if not user or not check_password_hash(user.password, input_password):
             return jsonify({"success": False, "message": "用户名或密码错误"}), 401
 
-        # 生成 token
-        token = generate_token({'user_uuid': user.user_uuid, 'username': user.name},app.secret_key,expires_in=3600)
-
-        # 保存 session（可选）
-        session['user_uuid'] = user.user_uuid
-        session['username'] = user.name
-        session.permanent = bool(remember)
+        # 生成 JWT（有效期 1 小时）
+        token = generate_token(
+            {'user_uuid': user.user_uuid, 'username': user.name},
+            app.secret_key,
+            expires_in=3600
+        )
 
         return jsonify({
             "success": True,
@@ -141,7 +139,8 @@ def login():
         db_session.close()
 
 
-@app.route("/api/register", methods=['POST'])
+
+@app.route("/api/auth/register", methods=['POST'])
 def register():
     data = request.json
     username = data.get("username")
@@ -199,19 +198,19 @@ def get_register_captcha():
     return send_file(buf, mimetype='image/png')
 
 
-@app.route("/api/chat/get_response", methods=['POST'])
+@app.route("/api/chat/", methods=['POST'])
 @login_required(role='user')
-def get_chat_response():
+def get_chat(claims):
     """
     获得用户的提问，并发送回答
     每次请求都从数据库加载当前 topic_id 的聊天记录
     """
 
     data = request.json
-    user_message = data.get("text", "")
+    user_message = data.get("question", "")
     topic_id = data.get("topic_id")
 
-    user_uuid = session.get('user_uuid')
+    user_uuid = claims['user_uuid']
 
     with Session_sql() as db_session:
         # 如果没有 topic_id，就生成新的（绑定 user_uuid）
@@ -259,14 +258,14 @@ def get_chat_response():
 
 @app.route("/api/chat/update_chat", methods=['POST'])  # 开启新话题
 @login_required(role='user')
-def update_chat():
+def update_chat(claims):
     """
     当前端开启新话题时，应传输一个参数 new=True
     返回新的 topic_id，并初始化历史对话
     """
     data = request.get_json()
     if data.get("new"):
-        user_uuid = session.get('user_uuid')
+        user_uuid = claims['user_uuid']
         with Session_sql() as db_session:
             # 生成新的 topic_id（绑定用户）
             topic_id = generate_topic_id(db_session, user_uuid)
@@ -288,15 +287,15 @@ def update_chat():
 
 
 
-@app.route("/api/chat/history_response", methods=['POST'])
+@app.route("/api/chat/history", methods=['GET'])
 @login_required(role='user')
-def get_chat_history_response():
+def get_chat_history(claims):
     '''
     获得该用户所有的历史对话数据
     :return:
     '''
     data = request.json
-    user_uuid = data.get('user_uuid')
+    user_uuid = claims['user_uuid']
 
     if not user_uuid:
         return jsonify({"error": "缺少参数 user_uuid"}), 400
@@ -334,15 +333,15 @@ def get_chat_history_response():
     finally:
         db_session.close()
 
-@app.route("/api/chat/Specific_history", methods=['POST'])
+@app.route("/api/chat/specific_history", methods=['POST'])
 @login_required(role='user')
-def get_chat_Specific_history():
+def get_chat_Specific_history(claims):
     '''
     获得某一个历史对话的所有数据
     :return:
     '''
     data = request.json
-    user_uuid = data.get('user_uuid')
+    user_uuid = claims['user_uuid']
     topic_id = data.get('topic_id')
 
     if not user_uuid or not topic_id:
@@ -370,11 +369,11 @@ def get_chat_Specific_history():
 
 
 # 新增加路由：个人信息查询接口
-@app.route("/api/get_info/user", methods=['POST'])
+@app.route("/api/users/me", methods=['POST'])
 @login_required(role='user')
-def get_current_user_info():
-    app.logger.debug('进入 /api/get_info/user 接口')
-    current_user_uuid = session.get('user_uuid')
+def get_current_user_info(claims):
+    app.logger.debug('进入 /api/users/me 接口')
+    current_user_uuid = claims['user_uuid']
     app.logger.debug(f'从session获取user_uuid: {current_user_uuid}')
 
     db_session = Session_sql()
@@ -413,11 +412,10 @@ def get_current_user_info():
         app.logger.debug('数据库会话已关闭')
 
 
-
 @app.route("/api/login/admin", methods=['POST'])
 def admin_login():
     data = request.json
-    admin_name = data.get('Admin_name')
+    admin_name = data.get('admin_name')  # 建议统一小写 key，避免前端容易写错
     admin_password = data.get('password')
 
     if not admin_name or not admin_password:
@@ -429,8 +427,19 @@ def admin_login():
         if not admin or not check_password_hash(admin.password, admin_password):
             return jsonify({"success": False, "message": "管理员名或密码错误"}), 401
 
-        session['admin_name'] = admin_name
-        return jsonify({"success": True, "message": "管理员登录成功", "admin_name": admin_name})
+        # === 签发管理员 token ===
+        token = generate_token(
+            {"admin_name": admin.name, "role": "admin"},
+            app.secret_key,
+            expires_in=3600
+        )
+
+        return jsonify({
+            "success": True,
+            "message": "管理员登录成功",
+            "admin_name": admin.name,
+            "token": token
+        })
     except Exception as e:
         db_session.rollback()
         app.logger.error(f"管理员登录失败: {str(e)}", exc_info=True)
@@ -439,11 +448,13 @@ def admin_login():
         db_session.close()
 
 
+
+
 @app.route('/api/creat_info/admin', methods=['POST'])
 @login_required('admin')
 def creat_admin():
     data = request.json
-    admin_name = data.get("username")
+    admin_name = data.get("admin_name")
     admin_password = data.get("password")
 
     if not admin_name or not admin_password:
@@ -472,15 +483,13 @@ def creat_admin():
         db_session.close()
 
 
-
 @app.route('/api/get_info/admin', methods=['POST'])
 @login_required('admin')
-def get_admin_info():
-    data = request.json
-    admin_name = data.get("Admin_name")
-
+def get_admin_info(claims):
+    # 从 claims 获取管理员名
+    admin_name = claims.get("admin_name")
     if not admin_name:
-        return jsonify({"success": False, "message": "缺少管理员名"}), 400
+        return jsonify({"success": False, "message": "Token中缺少管理员名"}), 403
 
     db_session = Session_sql()
     try:
@@ -502,16 +511,6 @@ def get_admin_info():
         db_session.close()
 
 
-
-@app.route('/api/logout', methods=['POST'])
-def logout():
-    if 'user_uuid' not in session:   # 如果本来就没登录
-        return jsonify({"success": False,"message": "未登录，无法登出"}), 400
-
-    # 清除会话
-    uuid = session['user_uuid']
-    session.clear()
-    return jsonify({"success": True,"message": "登出成功",'uuid':uuid}), 200
 
 
 # 应用启动入口
