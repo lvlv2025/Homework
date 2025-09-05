@@ -792,7 +792,7 @@ class AdminUserListResource(Resource):
 
 
 # ==============================
-# 应用启动入口
+# 应用启动入口.
 # ==============================
 if __name__ == '__main__':
     app.run(
