@@ -3631,3 +3631,4 @@ AttributeError: 'ChatHistory' object has no attribute 'timestamp'
 2025-09-06 00:28:01,763 - INFO - app:153 - Flask应用启动，日志系统初始化完成
 2025-09-06 00:47:31,749 - INFO - app:175 - Flask应用启动，日志系统初始化完成
 2025-09-06 00:47:36,281 - INFO - app:175 - Flask应用启动，日志系统初始化完成
+2025-09-06 00:51:16,979 - INFO - app:175 - Flask应用启动，日志系统初始化完成
