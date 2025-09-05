@@ -13,6 +13,8 @@ import os
 import io
 from sqlalchemy.exc import IntegrityError
 from datetime import datetime, timedelta
+from authlib.jose import jwt
+import time
 ##########################
 #导自己的py文件
 from jwt_setting import generate_token,verify_token
@@ -69,35 +71,31 @@ app.logger.addHandler(console_handler)
 app.logger.info('Flask应用启动，日志系统初始化完成')
 
 
+
 def login_required(role='user'):
-    """
-    登录验证（纯 JWT 模式）
-    role: 'user' 或 'admin'
-    """
+    """JWT 登录验证装饰器"""
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            # 1. 从请求头获取 Token
             auth_header = request.headers.get("Authorization")
+            print("Authorization header:", auth_header)
             if not auth_header or not auth_header.startswith("Bearer "):
                 return jsonify({"success": False, "message": "缺少或无效的Token"}), 401
 
             token = auth_header.split(" ")[1]
-            claims = verify_token(token, current_app.secret_key)
+            claims = verify_token(token, app.secret_key)
             if not claims:
                 return jsonify({"success": False, "message": "Token无效或已过期"}), 401
 
-            # 2. 角色校验
+            # 角色校验
             if role == 'user' and 'user_uuid' not in claims:
                 return jsonify({"success": False, "message": "无效的用户凭证"}), 403
             if role == 'admin' and 'admin_name' not in claims:
                 return jsonify({"success": False, "message": "无效的管理员凭证"}), 403
 
-            # 3. 把 claims 传递给路由函数
             return f(*args, claims=claims, **kwargs)
         return decorated_function
     return decorator
-
 
 
 @app.route("/api/auth/login", methods=['POST'])
@@ -106,7 +104,7 @@ def login():
     username = data.get('username')
     input_password = data.get('password')
     captcha_input = data.get('captcha')
-
+    print(session)
     # 校验验证码（注意：验证码还是放在 session 里生成和校验比较方便）
     if 'captcha_text' not in session:
         return jsonify({"success": False, "message": "验证码已过期，请刷新"}), 400
@@ -215,7 +213,7 @@ def get_register_captcha():
     return send_file(buf, mimetype='image/png')
 
 
-@app.route("/api/chat/", methods=['POST'])
+@app.route("/api/chat", methods=['POST'],strict_slashes=False)
 @login_required(role='user')
 def get_chat(claims):
     """
@@ -224,7 +222,8 @@ def get_chat(claims):
     """
 
     data = request.json
-    user_message = data.get("question", "")
+
+    user_message = data.get("text", "")
     topic_id = data.get("topic_id")
 
     user_uuid = claims['user_uuid']
@@ -251,6 +250,7 @@ def get_chat(claims):
     # 添加当前用户输入
     chat_history.append({"role": "user", "content": user_message})
     response_message = get_chat_data(chat_history)  # 调用 AI 生成回答
+    print(response_message)
     chat_history.append({"role": "assistant", "content": response_message})
 
     # 保存当前对话
@@ -303,19 +303,19 @@ def update_chat(claims):
 
 
 
-
 @app.route("/api/chat/history", methods=['GET'])
 @login_required(role='user')
 def get_chat_history(claims):
-    '''
+    """
     获得该用户所有的历史对话数据
-    :return:
-    '''
-    data = request.json
+    """
     user_uuid = claims['user_uuid']
-
     if not user_uuid:
         return jsonify({"error": "缺少参数 user_uuid"}), 400
+
+    # 获取分页参数
+    page = int(request.args.get('page', 1))
+    size = int(request.args.get('size', 10))
 
     db_session = Session_sql()
     try:
@@ -325,10 +325,18 @@ def get_chat_history(claims):
             return jsonify({"error": "未找到记录"}), 404
 
         result = []
-        for tid_tuple in topic_ids:
+        start = (page - 1) * size
+        end = start + size
+
+        # 分页 topic_id
+        topic_ids_paginated = topic_ids[start:end]
+
+        for tid_tuple in topic_ids_paginated:
             tid = tid_tuple[0]
-            # 查询每个 topic_id 的第一条记录
-            first_chat = db_session.query(ChatHistory).filter_by(user_uuid=user_uuid, topic_id=tid).order_by(ChatHistory.id.asc()).first()
+            first_chat = db_session.query(ChatHistory)\
+                                   .filter_by(user_uuid=user_uuid, topic_id=tid)\
+                                   .order_by(ChatHistory.id.asc())\
+                                   .first()
             if first_chat:
                 result.append({
                     "topic_id": tid,
@@ -342,6 +350,7 @@ def get_chat_history(claims):
                     }
                 })
 
+        print(result)
         return jsonify({"history": result})
     except Exception as e:
         db_session.rollback()
