@@ -1,4 +1,6 @@
+# ==============================
 # 1. 标准库导入
+# ==============================
 import os
 import io
 import yaml
@@ -7,7 +9,9 @@ from datetime import timedelta
 from logging.handlers import RotatingFileHandler
 from functools import wraps
 
+# ==============================
 # 2. 第三方库导入
+# ==============================
 from flask import Flask, request, session, jsonify, send_file
 from flask_cors import CORS
 from flask_restx import Api, fields, Resource
@@ -17,7 +21,9 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 from authlib.jose import jwt
 
+# ==============================
 # 3. 自定义模块导入
+# ==============================
 from jwt_setting import generate_token, verify_token
 from creat_id import generate_unique_user_uuid, generate_topic_id
 from db_model import Base, Users_info, ChatHistory, Admin_info
@@ -53,7 +59,7 @@ CORS(app, supports_credentials=True)
 
 
 # ==============================
-# Swagger文档配置
+# Swagger文档配置（无Default命名空间）
 # ==============================
 api = Api(
     app,
@@ -72,12 +78,23 @@ api = Api(
     }
 )
 
-# 定义命名空间
+# 1. 验证码专用命名空间
 auth_ns = api.namespace(
     'auth', 
-    path='/api/auth',  
-    description='认证相关接口'
+    path='/api',  
+    description='认证相关验证码接口',
+    ordered=True
 )
+
+# 2. 用户操作命名空间（登录/注册）
+user_ops_ns = api.namespace(
+    'user-operations', 
+    path='/api',  
+    description='用户登录注册相关接口',
+    ordered=True
+)
+
+# 3. 其他命名空间
 chat_ns = api.namespace(
     'chat', 
     path='/api/chat',  
@@ -87,7 +104,7 @@ chat_ns = api.namespace(
 user_ns = api.namespace(
     'users', 
     path='/api/users',  
-    description='用户相关接口', 
+    description='用户信息管理接口', 
     security='Bearer'
 )
 admin_ns = api.namespace(
@@ -97,29 +114,31 @@ admin_ns = api.namespace(
     security='Bearer'
 )
 
-# 定义数据模型
-login_model = auth_ns.model('LoginRequest', {
+
+# ==============================
+# 数据模型定义（按命名空间分类）
+# ==============================
+# 2.1 用户操作相关模型
+login_model = user_ops_ns.model('LoginRequest', {
     'username': fields.String(required=True, description='用户名'),
     'password': fields.String(required=True, description='密码'),
     'captcha': fields.String(required=True, description='验证码')
 })
 
-register_model = auth_ns.model('RegisterRequest', {
+register_model = user_ops_ns.model('RegisterRequest', {
     'username': fields.String(required=True, description='用户名'),
     'password': fields.String(required=True, description='密码（至少6位）'),
     'email': fields.String(required=True, description='邮箱'),
     'captcha': fields.String(required=True, description='验证码')
 })
 
+# 3.1 聊天相关模型
 chat_request_model = chat_ns.model('ChatRequest', {
     'text': fields.String(required=True, description='用户提问内容'),
     'topic_id': fields.String(required=False, description='对话主题ID（新对话可不传）')
 })
 
-specific_history_model = chat_ns.model('SpecificHistoryRequest', {
-    'topic_id': fields.String(required=True, description='要查询的对话主题ID')
-})
-
+# 4.1 管理员相关模型
 admin_login_model = admin_ns.model('AdminLoginRequest', {
     'admin_name': fields.String(required=True, description='管理员用户名'),
     'password': fields.String(required=True, description='管理员密码')
@@ -184,26 +203,26 @@ def login_required(role='user'):
         return decorated_function
     return decorator
 
+
 # ==============================
-# 1. 认证相关接口（修改验证码路径 + 保留其他接口）
+# 1. 验证码接口（auth_ns）
 # ==============================
 
-@api.route('/api/login/captcha')  # 直接用根Api定义路径，不再依赖auth_ns
+# 1.1 登录验证码
+@auth_ns.route('/login/captcha')  
 class LoginCaptchaResource(Resource):
     @api.doc(
         description='获取登录验证码图片（支持?t=时间戳防缓存）',
         responses={200: '返回验证码图片', 500: '生成失败'},
-        tags=['认证相关']  # 归类到Swagger的「认证相关」标签，方便管理
+        tags=['认证相关']
     )
     def get(self):
         try:
-            # 忽略前端的?t=xxx时间戳参数，不影响逻辑
             img, captcha_text = generate_math_captcha()
-            session['captcha_text'] = captcha_text  # 存入session用于后续登录校验
+            session['captcha_text'] = captcha_text
             buf = io.BytesIO()
             img.save(buf, format='PNG')
             buf.seek(0)
-            # 加防缓存头，避免浏览器缓存验证码
             response = send_file(buf, mimetype='image/png')
             response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
             response.headers['Pragma'] = 'no-cache'
@@ -213,21 +232,21 @@ class LoginCaptchaResource(Resource):
             return jsonify({"success": False, "message": "验证码生成失败"}), 500
 
 
-@api.route('/api/register/captcha')  # 直接用根Api定义路径，不再依赖auth_ns
+# 1.2 注册验证码
+@auth_ns.route('/register/captcha')  
 class RegisterCaptchaResource(Resource):
     @api.doc(
         description='获取注册验证码图片（支持?t=时间戳防缓存）',
         responses={200: '返回验证码图片', 500: '生成失败'},
-        tags=['认证相关']  # 归类到Swagger的「认证相关」标签
+        tags=['认证相关']
     )
     def get(self):
         try:
             img, captcha_text = generate_math_captcha()
-            session['captcha_text'] = captcha_text  # 存入session用于后续注册校验
+            session['captcha_text'] = captcha_text
             buf = io.BytesIO()
             img.save(buf, format='PNG')
             buf.seek(0)
-            # 加防缓存头
             response = send_file(buf, mimetype='image/png')
             response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
             response.headers['Pragma'] = 'no-cache'
@@ -237,18 +256,20 @@ class RegisterCaptchaResource(Resource):
             return jsonify({"success": False, "message": "验证码生成失败"}), 500
 
 
-# ------------------------------
-# 保留原有的登录/注册接口（仍在auth_ns下，路径不变：/api/auth/login 和 /api/auth/register）
-# ------------------------------
-@auth_ns.route('/login')
+# ==============================
+# 2. 用户操作接口（user_ops_ns）
+# ==============================
+
+# 2.1 用户登录
+@user_ops_ns.route('/login')
 class LoginResource(Resource):
     @api.doc(
         description='用户登录接口',
-        responses={200: '登录成功', 400: '验证码错误/参数缺失', 401: '用户名/密码错误', 500: '服务器错误'}
+        responses={200: '登录成功', 400: '验证码错误/参数缺失', 401: '用户名/密码错误', 500: '服务器错误'},
+        tags=['用户操作']
     )
-    @auth_ns.expect(login_model)
+    @user_ops_ns.expect(login_model)
     def post(self):
-        # 你的原有登录逻辑不变，直接保留
         data = request.json
         username = data.get('username')
         input_password = data.get('password')
@@ -285,15 +306,16 @@ class LoginResource(Resource):
             db_session.close()
 
 
-@auth_ns.route('/register')
+# 2.2 用户注册
+@user_ops_ns.route('/register')
 class RegisterResource(Resource):
     @api.doc(
         description='用户注册接口',
-        responses={200: '注册成功', 400: '参数错误/用户名/邮箱已存在', 500: '服务器错误'}
+        responses={200: '注册成功', 400: '参数错误/用户名/邮箱已存在', 500: '服务器错误'},
+        tags=['用户操作']
     )
-    @auth_ns.expect(register_model)
+    @user_ops_ns.expect(register_model)
     def post(self):
-        # 你的原有注册逻辑不变，直接保留
         data = request.json
         username = data.get("username")
         password = data.get("password")
@@ -339,12 +361,14 @@ class RegisterResource(Resource):
             db_session.rollback()
             app.logger.error(f"注册用户失败: {str(e)}", exc_info=True)
             return jsonify({"success": False, "message": "注册失败，请稍后重试"}), 500
-        
+
+
 # ==============================
-# 2. 聊天相关接口
+# 3. 聊天相关接口（chat_ns）
 # ==============================
-# 2.1 发送聊天消息
-@chat_ns.route('')  # 完整路径：/api/chat（由命名空间path + 此处路由组成）
+
+# 3.1 发送聊天消息
+@chat_ns.route('')  # 完整路径：/api/chat
 class ChatResource(Resource):
     @api.doc(
         description='发送聊天消息获取AI回复',
@@ -401,7 +425,7 @@ class ChatResource(Resource):
             return jsonify({"success": False, "error": "保存失败，请稍后重试"}), 500
 
 
-# 2.2 开启新聊天话题
+# 3.2 开启新聊天话题
 @chat_ns.route('/update_chat')  # 完整路径：/api/chat/update_chat
 class UpdateChatResource(Resource):
     @api.doc(
@@ -424,7 +448,7 @@ class UpdateChatResource(Resource):
         return jsonify({"success": False, "message": "参数缺失"}), 400
 
 
-# 2.3 获取聊天历史列表（分页）
+# 3.3 获取聊天历史列表（分页）
 @chat_ns.route('/history')  # 完整路径：/api/chat/history
 class ChatHistoryResource(Resource):
     @api.doc(
@@ -477,7 +501,7 @@ class ChatHistoryResource(Resource):
             db_session.close()
 
 
-# 2.4 获取特定话题的聊天详情
+# 3.4 获取特定话题的聊天详情
 @chat_ns.route('/history/<string:topic_id>')  # 完整路径：/api/chat/history/{topic_id}
 class SpecificChatHistoryResource(Resource):
     @api.doc(
@@ -518,7 +542,7 @@ class SpecificChatHistoryResource(Resource):
             db_session.close()
 
 
-# 2.5 删除特定话题的聊天记录（修复后可正常匹配路由）
+# 3.5 删除特定话题的聊天记录
 @chat_ns.route('/history/<string:topic_id>', methods=['DELETE'])
 class DeleteChatHistoryResource(Resource):
     @api.doc(
@@ -530,25 +554,23 @@ class DeleteChatHistoryResource(Resource):
         user_uuid = claims['user_uuid']
         db_session = Session_sql()
         try:
-            # 1. 验证话题是否属于当前用户
+            # 验证话题是否属于当前用户
             records = db_session.query(ChatHistory).filter_by(
                 user_uuid=user_uuid, topic_id=topic_id
             ).all()
             
             if not records:
                 db_session.close()
-                # 修复：返回 字典 + 状态码（由 flask-restx 统一处理为 Response）
                 return {
                     "success": False, 
                     "message": "话题不存在或无权限访问"
                 }, 404
 
-            # 2. 删除该话题的所有记录
+            # 删除该话题的所有记录
             for record in records:
                 db_session.delete(record)
             db_session.commit()
             
-            # 3. 正常流程：返回字典 + 状态码
             return {
                 "success": True, 
                 "message": f"话题 {topic_id} 的记录已成功删除",
@@ -558,7 +580,6 @@ class DeleteChatHistoryResource(Resource):
         except Exception as e:
             db_session.rollback()
             app.logger.error(f"删除聊天记录失败: {str(e)}", exc_info=True)
-            # 修复：异常流程也返回 字典 + 状态码
             return {
                 "success": False, 
                 "message": "删除失败，请稍后重试"
@@ -568,10 +589,11 @@ class DeleteChatHistoryResource(Resource):
             db_session.close()
 
 
+# ==============================
+# 4. 用户信息管理接口（user_ns）
+# ==============================
 
-# ==============================
-# 3. 用户相关接口
-# ==============================
+# 4.1 获取用户信息
 @user_ns.route('/info')
 class UserInfoResource(Resource):
     @api.doc(
@@ -603,6 +625,7 @@ class UserInfoResource(Resource):
             db_session.close()
 
 
+# 4.2 修改密码
 @user_ns.route('/update_password')
 class UpdatePasswordResource(Resource):
     @api.doc(
@@ -640,8 +663,10 @@ class UpdatePasswordResource(Resource):
 
 
 # ==============================
-# 4. 管理员相关接口
+# 5. 管理员接口（admin_ns）
 # ==============================
+
+# 5.1 管理员登录
 @admin_ns.route('/login')
 class AdminLoginResource(Resource):
     @api.doc(
@@ -679,6 +704,7 @@ class AdminLoginResource(Resource):
             db_session.close()
 
 
+# 5.2 创建新管理员
 @admin_ns.route('/create')
 class CreateAdminResource(Resource):
     @api.doc(
@@ -721,6 +747,7 @@ class CreateAdminResource(Resource):
             return jsonify({"success": False, "message": "创建失败，请稍后重试"}), 500
 
 
+# 5.3 获取用户列表
 @admin_ns.route('/users')
 class AdminUserListResource(Resource):
     @api.doc(
@@ -773,3 +800,4 @@ if __name__ == '__main__':
         port=5000,
         debug=True  # 生产环境需改为False
     )
+    
