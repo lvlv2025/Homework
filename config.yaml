@@ -1,0 +1,10 @@
+database:
+  type: mysql           # 明确指定数据库类型为 mysql
+  host: localhost       # 本地数据库填 localhost 或 127.0.0.1
+  port: 3306            # MySQL 默认端口，若修改过则填实际端口
+  user: root            # MySQL 默认用户名（本地环境通常为 root）
+  password: lmf563..  # 安装 MySQL 时设置的密码（若未设置密码则留空）
+  database_name: chat_db  # 需提前创建的数据库名（例如 chat_db）
+  charset: utf8mb4      # 字符集，保持默认即可
+  autocommit: true
+  connect_timeout: 10
