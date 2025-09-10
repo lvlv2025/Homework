@@ -30,6 +30,7 @@ from db_model import Base, Users_info, ChatHistory, Admin_info
 from captcha import generate_math_captcha
 from ai_chat import get_chat_data
 
+
 # ==============================
 # 数据库与应用初始化
 # ==============================
@@ -49,11 +50,13 @@ Base.metadata.create_all(engine)
 # 创建数据库会话
 Session_sql = sessionmaker(bind=engine)
 
+
 # 创建Flask应用
 app = Flask(__name__)
 app.secret_key = 'manlimanlimanli'  # 保留原始密钥
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 CORS(app, supports_credentials=True)
+
 
 # ==============================
 # Swagger文档配置（无Default命名空间）
@@ -77,39 +80,40 @@ api = Api(
 
 # 1. 验证码专用命名空间
 auth_ns = api.namespace(
-    'auth',
-    path='/api',
+    'auth', 
+    path='/api',  
     description='认证相关验证码接口',
     ordered=True
 )
 
 # 2. 用户操作命名空间（登录/注册）
 user_ops_ns = api.namespace(
-    'user-operations',
-    path='/api/auth',
+    'user-operations', 
+    path='/api/auth/',  
     description='用户登录注册相关接口',
     ordered=True
 )
 
 # 3. 其他命名空间
 chat_ns = api.namespace(
-    'chat',
-    path='/api/chat',
-    description='聊天相关接口',
+    'chat', 
+    path='/api/chat',  
+    description='聊天相关接口', 
     security='Bearer'
 )
 user_ns = api.namespace(
-    'users',
-    path='/api/users',
-    description='用户信息管理接口',
+    'users', 
+    path='/api/users',  
+    description='用户信息管理接口', 
     security='Bearer'
 )
 admin_ns = api.namespace(
-    'admin',
-    path='/api/admin',
-    description='管理员相关接口',
+    'admin', 
+    path='/api/admin',  
+    description='管理员相关接口', 
     security='Bearer'
 )
+
 
 # ==============================
 # 数据模型定义（按命名空间分类）
@@ -144,6 +148,7 @@ create_admin_model = admin_ns.model('CreateAdminRequest', {
     'admin_name': fields.String(required=True, description='新管理员用户名'),
     'password': fields.String(required=True, description='新管理员密码')
 })
+
 
 # ==============================
 # 日志配置
@@ -195,9 +200,7 @@ def login_required(role='user'):
             # 将claims传递给视图函数
             kwargs['claims'] = claims
             return f(*args, **kwargs)
-
         return decorated_function
-
     return decorator
 
 
@@ -206,7 +209,7 @@ def login_required(role='user'):
 # ==============================
 
 # 1.1 登录验证码
-@auth_ns.route('/login/captcha')
+@auth_ns.route('/login/captcha')  
 class LoginCaptchaResource(Resource):
     @api.doc(
         description='获取登录验证码图片（支持?t=时间戳防缓存）',
@@ -230,7 +233,7 @@ class LoginCaptchaResource(Resource):
 
 
 # 1.2 注册验证码
-@auth_ns.route('/register/captcha')
+@auth_ns.route('/register/captcha')  
 class RegisterCaptchaResource(Resource):
     @api.doc(
         description='获取注册验证码图片（支持?t=时间戳防缓存）',
@@ -271,77 +274,36 @@ class LoginResource(Resource):
         username = data.get('username')
         input_password = data.get('password')
         captcha_input = data.get('captcha')
-        user_or_admin  = data.get('user_or_admin')
 
-        if user_or_admin == 'user':
-            print('user')
-            # 验证码校验
-            if 'captcha_text' not in session:
-                return jsonify({"success": False, "message": "验证码已过期，请刷新"}), 400
-            if captcha_input.lower() != session['captcha_text'].lower():
-                return jsonify({"success": False, "message": "验证码错误"}), 400
+        # 验证码校验
+        if 'captcha_text' not in session:
+            return jsonify({"success": False, "message": "验证码已过期，请刷新"}), 400
+        if captcha_input.lower() != session['captcha_text'].lower():
+            return jsonify({"success": False, "message": "验证码错误"}), 400
 
-            db_session = Session_sql()
-            try:
-                user = db_session.query(Users_info).filter_by(name=username).first()
-                if not user or not check_password_hash(user.password, input_password):
-                    return jsonify({"success": False, "message": "用户名或密码错误"}), 401
+        db_session = Session_sql()
+        try:
+            user = db_session.query(Users_info).filter_by(name=username).first()
+            if not user or not check_password_hash(user.password, input_password):
+                return jsonify({"success": False, "message": "用户名或密码错误"}), 401
 
-                # 生成JWT
-                token = generate_token(
-                    {'user_uuid': user.user_uuid, 'username': user.name},
-                    app.secret_key,
-                    expires_in=3600
-                )
-                return jsonify({
-                    "success": True,
-                    "message": "登录成功",
-                    "username": user.name,
-                    "token": token
-                })
-            except Exception as e:
-                app.logger.error(f"用户登录失败: {str(e)}", exc_info=True)
-                return jsonify({"success": False, "message": "登录失败，请稍后重试"}), 500
-            finally:
-                db_session.close()
-
-        elif user_or_admin == 'admin':
-
-            # 验证码校验
-            if 'captcha_text' not in session:
-                return jsonify({"success": False, "message": "验证码已过期，请刷新"}), 400
-            if captcha_input.lower() != session['captcha_text'].lower():
-                return jsonify({"success": False, "message": "验证码错误"}), 400
-
-            admin_name = username
-            password = input_password
-
-
-            db_session = Session_sql()
-            try:
-                admin = db_session.query(Admin_info).filter_by(name=admin_name).first()
-                if not admin or not check_password_hash(admin.password, password):
-                    return jsonify({"success": False, "message": "管理员用户名或密码错误"}), 401
-
-                # 生成管理员JWT
-                token = generate_token(
-                    {'admin_name': admin.name},
-                    app.secret_key,
-                    expires_in=3600
-                )
-
-                return jsonify({
-                    "success": True,
-                    "message": "管理员登录成功",
-                    "admin_name": admin.name,
-                    "token": token
-                })
-            except Exception as e:
-
-                app.logger.error(f"管理员登录失败: {str(e)}", exc_info=True)
-                return jsonify({"success": False, "message": "登录失败，请稍后重试"}), 500
-            finally:
-                db_session.close()
+            # 生成JWT
+            token = generate_token(
+                {'user_uuid': user.user_uuid, 'username': user.name},
+                app.secret_key,
+                expires_in=3600
+            )
+            return jsonify({
+                "success": True,
+                "message": "登录成功",
+                "username": user.name,
+                "token": token
+            })
+        except Exception as e:
+            app.logger.error(f"用户登录失败: {str(e)}", exc_info=True)
+            return jsonify({"success": False, "message": "登录失败，请稍后重试"}), 500
+        finally:
+            db_session.close()
 
 
 # 2.2 用户注册
@@ -505,53 +467,38 @@ class ChatHistoryResource(Resource):
             # 查询所有topic_id（去重）
             topic_ids = db_session.query(ChatHistory.topic_id).filter_by(user_uuid=user_uuid).distinct().all()
             if not topic_ids:
-                return jsonify({
-                    "success": True,
-                    "data": {
-                        "total": 0,
-                        "page": page,
-                        "size": size,
-                        "history": []
-                    }
-                })
+                return jsonify({"error": "未找到记录"}), 404
 
             # 分页处理
             start = (page - 1) * size
             end = start + size
-            paginated_topics = [topic[0] for topic in topic_ids[start:end]]
+            paginated_topics = [topic[0] for topic in topic_ids[start:end]]  # 提取topic_id
 
-            # 构建历史列表
+            # 构建历史列表（取每个话题的第一条消息作为标题）
             history_list = []
             for topic_id in paginated_topics:
                 first_msg = db_session.query(ChatHistory).filter_by(
                     user_uuid=user_uuid, topic_id=topic_id
                 ).order_by(asc(ChatHistory.id)).first()
-
+                
                 if first_msg:
                     history_list.append({
                         "topic_id": topic_id,
-                        "user_question": {"content": first_msg.question},
-                        "assistant_reply": {"content": first_msg.answer},
-                        "created_at": first_msg.created_at.strftime("%Y-%m-%d %H:%M:%S") if first_msg.created_at else None,
                         "first_message": first_msg.question
                     })
 
             return jsonify({
                 "success": True,
-                "data": {
-                    "total": len(topic_ids),
-                    "page": page,
-                    "size": size,
-                    "history": history_list
-                }
+                "total": len(topic_ids),
+                "page": page,
+                "size": size,
+                "history": history_list
             })
         except Exception as e:
             app.logger.error(f"获取聊天历史列表失败: {str(e)}", exc_info=True)
-            return jsonify({"success": False, "message": "获取失败，请稍后重试"}), 500
+            return jsonify({"success": False, "error": "获取失败，请稍后重试"}), 500
         finally:
             db_session.close()
-
-
 
 
 # 3.4 获取特定话题的聊天详情
@@ -570,32 +517,24 @@ class SpecificChatHistoryResource(Resource):
             records = db_session.query(ChatHistory).filter_by(
                 user_uuid=user_uuid, topic_id=topic_id
             ).order_by(asc(ChatHistory.id)).all()
-
+            
             if not records:
                 return jsonify({"error": "话题不存在或无权限访问"}), 404
 
-            # 构建详细聊天记录，符合前端期望
-            history = []
+            # 构建详细聊天记录
+            chat_details = []
             for record in records:
-                history.append({
-                    "user_question": {
-                        "role": "user",
-                        "content": record.question
-                    },
-                    "assistant_reply": {
-                        "role": "assistant",
-                        "content": record.answer
-                    }
+                chat_details.append({
+                    "id": record.id,
+                    "user_message": record.question,
+                    "ai_reply": record.answer
                 })
-            #print(history)
+
             return jsonify({
                 "success": True,
-                "data": {
-                    "history": history
-                },
-                "topic_id": topic_id
+                "topic_id": topic_id,
+                "chat_details": chat_details
             })
-
         except Exception as e:
             app.logger.error(f"获取特定话题聊天记录失败: {str(e)}", exc_info=True)
             return jsonify({"success": False, "error": "获取失败，请稍后重试"}), 500
@@ -604,7 +543,7 @@ class SpecificChatHistoryResource(Resource):
 
 
 # 3.5 删除特定话题的聊天记录
-@chat_ns.route('/<string:topic_id>', methods=['DELETE'])
+@chat_ns.route('/history/<string:topic_id>', methods=['DELETE'])
 class DeleteChatHistoryResource(Resource):
     @api.doc(
         description='删除特定话题的所有聊天记录',
@@ -619,11 +558,11 @@ class DeleteChatHistoryResource(Resource):
             records = db_session.query(ChatHistory).filter_by(
                 user_uuid=user_uuid, topic_id=topic_id
             ).all()
-
+            
             if not records:
                 db_session.close()
                 return {
-                    "success": False,
+                    "success": False, 
                     "message": "话题不存在或无权限访问"
                 }, 404
 
@@ -631,9 +570,9 @@ class DeleteChatHistoryResource(Resource):
             for record in records:
                 db_session.delete(record)
             db_session.commit()
-
+            
             return {
-                "success": True,
+                "success": True, 
                 "message": f"话题 {topic_id} 的记录已成功删除",
                 "topic_id": topic_id
             }, 200
@@ -642,8 +581,60 @@ class DeleteChatHistoryResource(Resource):
             db_session.rollback()
             app.logger.error(f"删除聊天记录失败: {str(e)}", exc_info=True)
             return {
-                "success": False,
+                "success": False, 
                 "message": "删除失败，请稍后重试"
+            }, 500
+
+        finally:
+            db_session.close()
+
+# 3.6 一键清空所有聊天记录
+@chat_ns.route('/clear', methods=['DELETE'])
+class ClearAllChatHistoryResource(Resource):
+    @api.doc(
+        description='一键清空当前登录用户的所有聊天记录（不可逆，请谨慎操作）',
+        responses={
+            200: '所有聊天记录删除成功',
+            401: '未登录或Token无效',
+            500: '服务器错误，删除失败'
+        },
+        tags=['聊天相关']
+    )
+    @login_required(role='user')
+    def delete(self, claims):
+        user_uuid = claims['user_uuid']
+        db_session = Session_sql()
+        try:
+            # 1. 统计待删除的记录数（确保返回的是纯数字）
+            delete_count = db_session.query(ChatHistory).filter_by(user_uuid=user_uuid).count()
+            
+            if delete_count == 0:
+                # 返回纯基础类型数据（字符串、数字）
+                return {
+                    "success": True,
+                    "message": "当前无任何聊天记录可删除",
+                    "deleted_count": 0
+                }, 200
+
+            # 2. 执行批量删除
+            db_session.query(ChatHistory).filter_by(user_uuid=user_uuid).delete()
+            db_session.commit()
+
+            # 3. 返回成功响应（仅包含可序列化类型）
+            return {
+                "success": True,
+                "message": f"所有聊天记录已清空，共删除 {delete_count} 条对话",
+                "deleted_count": delete_count  # 确保是整数，而非其他类型
+            }, 200
+
+        except Exception as e:
+            db_session.rollback()
+            app.logger.error(f"用户[{user_uuid}]一键清空聊天记录失败: {str(e)}", exc_info=True)
+            # 异常信息只返回字符串，避免包含特殊对象
+            return {
+                "success": False,
+                "message": "清空聊天记录失败，请稍后重试",
+                "error": str(e)  # 转为字符串确保可序列化
             }, 500
 
         finally:
@@ -655,7 +646,7 @@ class DeleteChatHistoryResource(Resource):
 # ==============================
 
 # 4.1 获取用户信息
-@user_ns.route('/me')
+@user_ns.route('/info')
 class UserInfoResource(Resource):
     @api.doc(
         description='获取当前登录用户信息',
@@ -727,7 +718,7 @@ class UpdatePasswordResource(Resource):
 # 5. 管理员接口（admin_ns）
 # ==============================
 
-# 5.1 管理员登录  #目前废弃
+# 5.1 管理员登录
 @admin_ns.route('/login')
 class AdminLoginResource(Resource):
     @api.doc(
@@ -827,8 +818,7 @@ class AdminUserListResource(Resource):
             # 查询总用户数
             total_users = db_session.query(Users_info).count()
             # 分页查询用户
-            users = db_session.query(Users_info).order_by(Users_info.register_time.desc()).offset(start).limit(
-                size).all()
+            users = db_session.query(Users_info).order_by(Users_info.register_time.desc()).offset(start).limit(size).all()
 
             user_list = []
             for user in users:
@@ -862,3 +852,4 @@ if __name__ == '__main__':
         port=5000,
         debug=True  # 生产环境需改为False
     )
+    
