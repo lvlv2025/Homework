@@ -271,36 +271,77 @@ class LoginResource(Resource):
         username = data.get('username')
         input_password = data.get('password')
         captcha_input = data.get('captcha')
+        user_or_admin  = data.get('user_or_admin')
 
-        # 验证码校验
-        if 'captcha_text' not in session:
-            return jsonify({"success": False, "message": "验证码已过期，请刷新"}), 400
-        if captcha_input.lower() != session['captcha_text'].lower():
-            return jsonify({"success": False, "message": "验证码错误"}), 400
+        if user_or_admin == 'user':
+            print('user')
+            # 验证码校验
+            if 'captcha_text' not in session:
+                return jsonify({"success": False, "message": "验证码已过期，请刷新"}), 400
+            if captcha_input.lower() != session['captcha_text'].lower():
+                return jsonify({"success": False, "message": "验证码错误"}), 400
 
-        db_session = Session_sql()
-        try:
-            user = db_session.query(Users_info).filter_by(name=username).first()
-            if not user or not check_password_hash(user.password, input_password):
-                return jsonify({"success": False, "message": "用户名或密码错误"}), 401
+            db_session = Session_sql()
+            try:
+                user = db_session.query(Users_info).filter_by(name=username).first()
+                if not user or not check_password_hash(user.password, input_password):
+                    return jsonify({"success": False, "message": "用户名或密码错误"}), 401
 
-            # 生成JWT
-            token = generate_token(
-                {'user_uuid': user.user_uuid, 'username': user.name},
-                app.secret_key,
-                expires_in=3600
-            )
-            return jsonify({
-                "success": True,
-                "message": "登录成功",
-                "username": user.name,
-                "token": token
-            })
-        except Exception as e:
-            app.logger.error(f"用户登录失败: {str(e)}", exc_info=True)
-            return jsonify({"success": False, "message": "登录失败，请稍后重试"}), 500
-        finally:
-            db_session.close()
+                # 生成JWT
+                token = generate_token(
+                    {'user_uuid': user.user_uuid, 'username': user.name},
+                    app.secret_key,
+                    expires_in=3600
+                )
+                return jsonify({
+                    "success": True,
+                    "message": "登录成功",
+                    "username": user.name,
+                    "token": token
+                })
+            except Exception as e:
+                app.logger.error(f"用户登录失败: {str(e)}", exc_info=True)
+                return jsonify({"success": False, "message": "登录失败，请稍后重试"}), 500
+            finally:
+                db_session.close()
+
+        elif user_or_admin == 'admin':
+
+            # 验证码校验
+            if 'captcha_text' not in session:
+                return jsonify({"success": False, "message": "验证码已过期，请刷新"}), 400
+            if captcha_input.lower() != session['captcha_text'].lower():
+                return jsonify({"success": False, "message": "验证码错误"}), 400
+
+            admin_name = username
+            password = input_password
+
+
+            db_session = Session_sql()
+            try:
+                admin = db_session.query(Admin_info).filter_by(name=admin_name).first()
+                if not admin or not check_password_hash(admin.password, password):
+                    return jsonify({"success": False, "message": "管理员用户名或密码错误"}), 401
+
+                # 生成管理员JWT
+                token = generate_token(
+                    {'admin_name': admin.name},
+                    app.secret_key,
+                    expires_in=3600
+                )
+
+                return jsonify({
+                    "success": True,
+                    "message": "管理员登录成功",
+                    "admin_name": admin.name,
+                    "token": token
+                })
+            except Exception as e:
+
+                app.logger.error(f"管理员登录失败: {str(e)}", exc_info=True)
+                return jsonify({"success": False, "message": "登录失败，请稍后重试"}), 500
+            finally:
+                db_session.close()
 
 
 # 2.2 用户注册
@@ -533,20 +574,28 @@ class SpecificChatHistoryResource(Resource):
             if not records:
                 return jsonify({"error": "话题不存在或无权限访问"}), 404
 
-            # 构建详细聊天记录
-            chat_details = []
+            # 构建详细聊天记录，符合前端期望
+            history = []
             for record in records:
-                chat_details.append({
-                    "id": record.id,
-                    "user_message": record.question,
-                    "ai_reply": record.answer
+                history.append({
+                    "user_question": {
+                        "role": "user",
+                        "content": record.question
+                    },
+                    "assistant_reply": {
+                        "role": "assistant",
+                        "content": record.answer
+                    }
                 })
-
+            #print(history)
             return jsonify({
                 "success": True,
-                "topic_id": topic_id,
-                "chat_details": chat_details
+                "data": {
+                    "history": history
+                },
+                "topic_id": topic_id
             })
+
         except Exception as e:
             app.logger.error(f"获取特定话题聊天记录失败: {str(e)}", exc_info=True)
             return jsonify({"success": False, "error": "获取失败，请稍后重试"}), 500
@@ -606,7 +655,7 @@ class DeleteChatHistoryResource(Resource):
 # ==============================
 
 # 4.1 获取用户信息
-@user_ns.route('/info')
+@user_ns.route('/me')
 class UserInfoResource(Resource):
     @api.doc(
         description='获取当前登录用户信息',
@@ -678,7 +727,7 @@ class UpdatePasswordResource(Resource):
 # 5. 管理员接口（admin_ns）
 # ==============================
 
-# 5.1 管理员登录
+# 5.1 管理员登录  #目前废弃
 @admin_ns.route('/login')
 class AdminLoginResource(Resource):
     @api.doc(

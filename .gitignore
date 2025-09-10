@@ -47,6 +47,6 @@ Thumbs.db           # Windows 系统生成的隐藏文件
 config.yaml
 test.py
 sql.py
-
+app - 副本.py
 .idea/
 
